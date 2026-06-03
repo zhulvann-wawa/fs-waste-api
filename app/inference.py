@@ -84,7 +84,13 @@ class WasteClassifier:
             Prediction(label=label, confidence=float(scores[index]))
             for index, label in enumerate(self.class_names)
         ]
-        return sorted(predictions, key=lambda item: item.confidence, reverse=True)
+        predictions = sorted(predictions, key=lambda item: item.confidence, reverse=True)
+
+    top = predictions[0]
+    if top.confidence < 0.85:
+        return [Prediction(label="Tidak Dikenali", confidence=top.confidence)]
+    
+    return predictions
 
     def _preprocess(self, image_bytes: bytes) -> np.ndarray:
         try:

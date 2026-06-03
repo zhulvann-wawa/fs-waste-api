@@ -87,7 +87,7 @@ class WasteClassifier:
         predictions = sorted(predictions, key=lambda item: item.confidence, reverse=True)
         
         top = predictions[0]
-        if top.confidence < 0.85:
+        if top.confidence < 0.80:
             return [Prediction(label="Tidak Dikenali", confidence=top.confidence)]
         
         return predictions
